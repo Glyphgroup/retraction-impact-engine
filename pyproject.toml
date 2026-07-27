@@ -1,0 +1,20 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "retraction-impact-engine"
+version = "0.1.0"
+description = "Recompute published syntheses without retracted studies, but only when their own numbers reproduce first."
+requires-python = ">=3.11"
+dependencies = ["scipy>=1.11"]
+
+[project.optional-dependencies]
+dev = ["pytest>=7.4", "statsmodels>=0.14", "numpy>=1.26"]
+
+[tool.setuptools.packages.find]
+include = ["rie*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"

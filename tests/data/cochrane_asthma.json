@@ -1,0 +1,1455 @@
+[
+ {
+  "analysis": {
+   "number": 1,
+   "name": "Treatment failure: need for systemic corticosteroids (all randomised participants)",
+   "method": "IV",
+   "model": "FIXED",
+   "effectMeasure": "OR",
+   "ciMethod": "WALD",
+   "ciLevel": "CI95",
+   "swapEvents": false,
+   "subgroupType": "COVARIATE",
+   "dataSource": "ONLY_ARM_LEVEL"
+  },
+  "dataRows": [
+   {
+    "studyId": "443255173517140750",
+    "name": "Wainwright 2009",
+    "events1": 41,
+    "total1": 127,
+    "events2": 47,
+    "total2": 124,
+    "oe": 0.0,
+    "variance": 0.0
+   },
+   {
+    "studyId": "443255173517140751",
+    "name": "FitzGerald 2004",
+    "events1": 12,
+    "total1": 142,
+    "events2": 9,
+    "total2": 148,
+    "oe": 0.0,
+    "variance": 0.0
+   },
+   {
+    "studyId": "443255173517140753",
+    "name": "Garrett 1998",
+    "events1": 2,
+    "total1": 14,
+    "events2": 0,
+    "total2": 14,
+    "oe": 0.0,
+    "variance": 0.0
+   },
+   {
+    "studyId": "443255173517140754",
+    "name": "Harrison 2004",
+    "events1": 22,
+    "total1": 192,
+    "events2": 24,
+    "total2": 198,
+    "oe": 0.0,
+    "variance": 0.0
+   },
+   {
+    "studyId": "443255173517140755",
+    "name": "Jackson 2018",
+    "events1": 38,
+    "total1": 127,
+    "events2": 30,
+    "total2": 127,
+    "oe": 0.0,
+    "variance": 0.0
+   },
+   {
+    "studyId": "443255173517140757",
+    "name": "Martinez 2011",
+    "events1": 22,
+    "total1": 71,
+    "events2": 20,
+    "total2": 72,
+    "oe": 0.0,
+    "variance": 0.0
+   },
+   {
+    "studyId": "443255173517140758",
+    "name": "Oborne 2009",
+    "events1": 18,
+    "total1": 197,
+    "events2": 29,
+    "total2": 203,
+    "oe": 0.0,
+    "variance": 0.0
+   },
+   {
+    "studyId": "443255173517140759",
+    "name": "Rice-McDonald 2005",
+    "events1": 6,
+    "total1": 9,
+    "events2": 6,
+    "total2": 9,
+    "oe": 0.0,
+    "variance": 0.0
+   }
+  ],
+  "published": {
+   "estimable": true,
+   "logScale": true,
+   "mean": -0.02737230690490113,
+   "se": 0.12898399550803932,
+   "ciStart": -0.28017629268273425,
+   "ciEnd": 0.225431678872932,
+   "heterogeneity": {
+    "chiSquared": 6.654212649166197,
+    "degreesOfFreedom": 7,
+    "iSquared": 0.0,
+    "p": 0.4657485228347744
+   },
+   "overallEffect": {
+    "z": 0.21221475421882915,
+    "pZ": 0.8319394968165865,
+    "t": 0.0,
+    "pT": 0.0
+   },
+   "k": 8
+  }
+ },
+ {
+  "analysis": {
+   "number": 2,
+   "name": "Treatment failure: need for systemic corticosteroids (of those starting inhaler)",
+   "method": "IV",
+   "model": "RANDOM",
+   "effectMeasure": "OR",
+   "heterogeneityEstimator": "DL",
+   "ciMethod": "WALD",
+   "ciLevel": "CI95",
+   "swapEvents": false,
+   "subgroupType": "COVARIATE",
+   "dataSource": "ONLY_CONTRAST_LEVEL"
+  },
+  "dataRows": [
+   {
+    "studyId": "443255173517140750",
+    "name": "Wainwright 2009",
+    "total1": 0,
+    "total2": 0,
+    "estimate": -0.2377,
+    "se": 0.2936,
+    "oe": 0.0,
+    "variance": 0.0
+   },
+   {
+    "studyId": "443255173517140751",
+    "name": "FitzGerald 2004",
+    "total1": 0,
+    "total2": 0,
+    "estimate": 0.4935,
+    "se": 0.4963,
+    "oe": 0.0,
+    "variance": 0.0
+   },
+   {
+    "studyId": "443255173517140753",
+    "name": "Garrett 1998",
+    "total1": 0,
+    "total2": 0,
+    "estimate": 1.7238,
+    "se": 1.5858,
+    "oe": 0.0,
+    "variance": 0.0
+   },
+   {
+    "studyId": "443255173517140754",
+    "name": "Harrison 2004",
+    "total1": 0,
+    "total2": 0,
+    "estimate": -0.34,
+    "se": 0.3499,
+    "oe": 0.0,
+    "variance": 0.0
+   },
+   {
+    "studyId": "443255173517140757",
+    "name": "Martinez 2011",
+    "total1": 0,
+    "total2": 0,
+    "estimate": 0.1547,
+    "se": 0.3676,
+    "oe": 0.0,
+    "variance": 0.0
+   },
+   {
+    "studyId": "443255173517140758",
+    "name": "Oborne 2009",
+    "total1": 0,
+    "total2": 0,
+    "estimate": -1.2993,
+    "se": 0.4597,
+    "oe": 0.0,
+    "variance": 0.0
+   },
+   {
+    "studyId": "443255173517140759",
+    "name": "Rice-McDonald 2005",
+    "total1": 0,
+    "total2": 0,
+    "estimate": 0.0,
+    "se": 0.5726,
+    "oe": 0.0,
+    "variance": 0.0
+   }
+  ],
+  "published": {
+   "estimable": true,
+   "logScale": true,
+   "mean": -0.1796983001859428,
+   "se": 0.22388841646532356,
+   "ciStart": -0.6185115330136814,
+   "ciEnd": 0.25911493264179586,
+   "heterogeneity": {
+    "chiSquared": 10.372388433426043,
+    "degreesOfFreedom": 6,
+    "iSquared": 42.154113890833386,
+    "p": 0.10982087076458658,
+    "tauSquared": 0.13799748050971156,
+    "ciEstimable": true,
+    "ciStart": 0.0,
+    "ciEnd": 2.87870530059422,
+    "ciStartSign": "",
+    "ciEndSign": ""
+   },
+   "overallEffect": {
+    "z": 0.8026243743332516,
+    "pZ": 0.4221918830865492,
+    "t": 0.0,
+    "pT": 0.0
+   },
+   "k": 7
+  }
+ },
+ {
+  "analysis": {
+   "number": 3,
+   "name": "Unscheduled physician visits",
+   "method": "MH",
+   "model": "FIXED",
+   "effectMeasure": "OR",
+   "ciMethod": "WALD",
+   "ciLevel": "CI95",
+   "swapEvents": false,
+   "subgroupType": "NONE",
+   "dataSource": "ONLY_ARM_LEVEL"
+  },
+  "dataRows": [
+   {
+    "studyId": "443255173517140750",
+    "name": "Wainwright 2009",
+    "events1": 35,
+    "total1": 127,
+    "events2": 41,
+    "total2": 124,
+    "oe": 0.0,
+    "variance": 0.0
+   },
+   {
+    "studyId": "443255173517140751",
+    "name": "FitzGerald 2004",
+    "events1": 1,
+    "total1": 142,
+    "events2": 0,
+    "total2": 148,
+    "oe": 0.0,
+    "variance": 0.0
+   },
+   {
+    "studyId": "443255173517140754",
+    "name": "Harrison 2004",
+    "events1": 31,
+    "total1": 192,
+    "events2": 28,
+    "total2": 198,
+    "oe": 0.0,
+    "variance": 0.0
+   }
+  ],
+  "published": {
+   "estimable": true,
+   "logScale": true,
+   "mean": -0.03720309801329358,
+   "se": 0.19485567992052608,
+   "ciStart": -0.41911321284058933,
+   "ciEnd": 0.3447070168140023,
+   "heterogeneity": {
+    "chiSquared": 1.6512165432068457,
+    "degreesOfFreedom": 2,
+    "iSquared": 0.0,
+    "p": 0.43796874186372736
+   },
+   "overallEffect": {
+    "z": 0.19092642323009137,
+    "pZ": 0.8485832383152967,
+    "t": 0.0,
+    "pT": 0.0
+   },
+   "k": 3
+  }
+ },
+ {
+  "analysis": {
+   "number": 4,
+   "name": "Unscheduled acute care, emergency department visit or hospital admission",
+   "method": "PETO",
+   "model": "FIXED",
+   "effectMeasure": "PETO_OR",
+   "ciMethod": "WALD",
+   "ciLevel": "CI95",
+   "swapEvents": false,
+   "subgroupType": "NONE",
+   "dataSource": "ONLY_ARM_LEVEL"
+  },
+  "dataRows": [
+   {
+    "studyId": "443255173517140750",
+    "name": "Wainwright 2009",
+    "events1": 4,
+    "total1": 127,
+    "events2": 4,
+    "total2": 124,
+    "oe": 0.0,
+    "variance": 0.0
+   },
+   {
+    "studyId": "443255173517140753",
+    "name": "Garrett 1998",
+    "events1": 0,
+    "total1": 28,
+    "events2": 0,
+    "total2": 28,
+    "oe": 0.0,
+    "variance": 0.0
+   },
+   {
+    "studyId": "443255173517140755",
+    "name": "Jackson 2018",
+    "events1": 0,
+    "total1": 127,
+    "events2": 4,
+    "total2": 127,
+    "oe": 0.0,
+    "variance": 0.0
+   },
+   {
+    "studyId": "443255173517140757",
+    "name": "Martinez 2011",
+    "events1": 0,
+    "total1": 71,
+    "events2": 0,
+    "total2": 72,
+    "oe": 0.0,
+    "variance": 0.0
+   }
+  ],
+  "published": {
+   "estimable": true,
+   "logScale": true,
+   "mean": -0.6984663538298544,
+   "se": 0.5840204390033988,
+   "ciStart": -1.8431253805117875,
+   "ciEnd": 0.4461926728520787,
+   "heterogeneity": {
+    "chiSquared": 2.6188504068891563,
+    "degreesOfFreedom": 1,
+    "iSquared": 61.81530654177892,
+    "p": 0.10560097004209412
+   },
+   "overallEffect": {
+    "z": 1.1959621738954063,
+    "pZ": 0.2317113422083995,
+    "t": 0.0,
+    "pT": 0.0
+   },
+   "k": 2
+  }
+ },
+ {
+  "analysis": {
+   "number": 5,
+   "name": "Serious adverse events",
+   "method": "MH",
+   "model": "FIXED",
+   "effectMeasure": "OR",
+   "ciMethod": "WALD",
+   "ciLevel": "CI95",
+   "swapEvents": false,
+   "subgroupType": "NONE",
+   "dataSource": "ONLY_ARM_LEVEL"
+  },
+  "dataRows": [
+   {
+    "studyId": "443255173517140750",
+    "name": "Wainwright 2009",
+    "events1": 17,
+    "total1": 127,
+    "events2": 10,
+    "total2": 124,
+    "oe": 0.0,
+    "variance": 0.0
+   },
+   {
+    "studyId": "443255173517140757",
+    "name": "Martinez 2011",
+    "events1": 1,
+    "total1": 71,
+    "events2": 1,
+    "total2": 72,
+    "oe": 0.0,
+    "variance": 0.0
+   }
+  ],
+  "published": {
+   "estimable": true,
+   "logScale": true,
+   "mean": 0.5227799616055993,
+   "se": 0.40220047855690877,
+   "ciStart": -0.2655184909307163,
+   "ciEnd": 1.3110784141419147,
+   "heterogeneity": {
+    "chiSquared": 0.13826799896587366,
+    "degreesOfFreedom": 1,
+    "iSquared": 0.0,
+    "p": 0.7100090713316859
+   },
+   "overallEffect": {
+    "z": 1.2997994519582086,
+    "pZ": 0.1936697134034149,
+    "t": 0.0,
+    "pT": 0.0
+   },
+   "k": 2
+  }
+ },
+ {
+  "analysis": {
+   "number": 6,
+   "name": "Non-serious adverse events",
+   "method": "MH",
+   "model": "FIXED",
+   "effectMeasure": "OR",
+   "ciMethod": "WALD",
+   "ciLevel": "CI95",
+   "swapEvents": false,
+   "subgroupType": "NONE",
+   "dataSource": "ONLY_ARM_LEVEL"
+  },
+  "dataRows": [
+   {
+    "studyId": "443255173517140752",
+    "name": "Foresi 2000",
+    "events1": 2,
+    "total1": 17,
+    "events2": 2,
+    "total2": 31,
+    "oe": 0.0,
+    "variance": 0.0
+   },
+   {
+    "studyId": "443255173517140758",
+    "name": "Oborne 2009",
+    "events1": 9,
+    "total1": 56,
+    "events2": 3,
+    "total2": 38,
+    "oe": 0.0,
+    "variance": 0.0
+   }
+  ],
+  "published": {
+   "estimable": true,
+   "logScale": true,
+   "mean": 0.7634186113405317,
+   "se": 0.583515911198783,
+   "ciStart": -0.3802515590151555,
+   "ciEnd": 1.9070887816962188,
+   "heterogeneity": {
+    "chiSquared": 0.013156220273373823,
+    "degreesOfFreedom": 1,
+    "iSquared": 0.0,
+    "p": 0.9086824657610996
+   },
+   "overallEffect": {
+    "z": 1.308308131259273,
+    "pZ": 0.1907688182850155,
+    "t": 0.0,
+    "pT": 0.0
+   },
+   "k": 2
+  }
+ },
+ {
+  "analysis": {
+   "number": 7,
+   "name": "Duration of exacerbation (days to symptom recovery)",
+   "method": "IV",
+   "model": "FIXED",
+   "effectMeasure": "MD",
+   "ciMethod": "WALD",
+   "ciLevel": "CI95",
+   "swapEvents": false,
+   "subgroupType": "NONE",
+   "dataSource": "ONLY_ARM_LEVEL"
+  },
+  "dataRows": [
+   {
+    "studyId": "443255173517140754",
+    "name": "Harrison 2004",
+    "total1": 110,
+    "total2": 97,
+    "mean1": 6.8,
+    "sd1": 5.8209,
+    "mean2": 6.1,
+    "sd2": 6.9464,
+    "oe": 0.0,
+    "variance": 0.0
+   }
+  ],
+  "published": {
+   "estimable": true,
+   "logScale": false,
+   "mean": 0.7000000000000002,
+   "se": 0.8974822157923478,
+   "ciStart": -1.0590328197182066,
+   "ciEnd": 2.4590328197182068,
+   "heterogeneity": {
+    "chiSquared": 0.0,
+    "degreesOfFreedom": 0,
+    "iSquared": 0.0,
+    "p": 1.0
+   },
+   "overallEffect": {
+    "z": 0.779959744808983,
+    "pZ": 0.4354145768684632,
+    "t": 0.0,
+    "pT": 0.0
+   },
+   "k": 1
+  }
+ },
+ {
+  "analysis": {
+   "number": 8,
+   "name": "Duration of exacerbation (days to lung function recovery)",
+   "method": "IV",
+   "model": "FIXED",
+   "effectMeasure": "MD",
+   "ciMethod": "WALD",
+   "ciLevel": "CI95",
+   "swapEvents": false,
+   "subgroupType": "NONE",
+   "dataSource": "ONLY_ARM_LEVEL"
+  },
+  "dataRows": [
+   {
+    "studyId": "443255173517140754",
+    "name": "Harrison 2004",
+    "total1": 110,
+    "total2": 97,
+    "mean1": 6.8,
+    "sd1": 5.8209,
+    "mean2": 7.0,
+    "sd2": 6.4502,
+    "oe": 0.0,
+    "variance": 0.0
+   }
+  ],
+  "published": {
+   "estimable": true,
+   "logScale": false,
+   "mean": -0.20000000000000015,
+   "se": 0.8584547185181154,
+   "ciStart": -1.8825403306539763,
+   "ciEnd": 1.482540330653976,
+   "heterogeneity": {
+    "chiSquared": 1.045359553994853e-33,
+    "degreesOfFreedom": 0,
+    "iSquared": 99.99999999999999,
+    "p": 0.0
+   },
+   "overallEffect": {
+    "z": 0.23297676124984767,
+    "pZ": 0.8157794513068455,
+    "t": 0.0,
+    "pT": 0.0
+   },
+   "k": 1
+  }
+ },
+ {
+  "analysis": {
+   "number": 9,
+   "name": "Treatment failure (all randomised participants): Subgrouped by age",
+   "method": "IV",
+   "model": "FIXED",
+   "effectMeasure": "OR",
+   "ciMethod": "WALD",
+   "ciLevel": "CI95",
+   "swapEvents": false,
+   "subgroupType": "COVARIATE",
+   "dataSource": "ONLY_ARM_LEVEL"
+  },
+  "dataRows": [
+   {
+    "studyId": "443255173517140750",
+    "name": "Wainwright 2009",
+    "events1": 41,
+    "total1": 127,
+    "events2": 47,
+    "total2": 124,
+    "oe": 0.0,
+    "variance": 0.0
+   },
+   {
+    "studyId": "443255173517140751",
+    "name": "FitzGerald 2004",
+    "events1": 12,
+    "total1": 142,
+    "events2": 9,
+    "total2": 148,
+    "oe": 0.0,
+    "variance": 0.0
+   },
+   {
+    "studyId": "443255173517140753",
+    "name": "Garrett 1998",
+    "events1": 2,
+    "total1": 14,
+    "events2": 0,
+    "total2": 14,
+    "oe": 0.0,
+    "variance": 0.0
+   },
+   {
+    "studyId": "443255173517140754",
+    "name": "Harrison 2004",
+    "events1": 22,
+    "total1": 192,
+    "events2": 24,
+    "total2": 198,
+    "oe": 0.0,
+    "variance": 0.0
+   },
+   {
+    "studyId": "443255173517140755",
+    "name": "Jackson 2018",
+    "events1": 38,
+    "total1": 127,
+    "events2": 30,
+    "total2": 127,
+    "oe": 0.0,
+    "variance": 0.0
+   },
+   {
+    "studyId": "443255173517140757",
+    "name": "Martinez 2011",
+    "events1": 22,
+    "total1": 71,
+    "events2": 20,
+    "total2": 72,
+    "oe": 0.0,
+    "variance": 0.0
+   },
+   {
+    "studyId": "443255173517140758",
+    "name": "Oborne 2009",
+    "events1": 18,
+    "total1": 197,
+    "events2": 29,
+    "total2": 203,
+    "oe": 0.0,
+    "variance": 0.0
+   },
+   {
+    "studyId": "443255173517140759",
+    "name": "Rice-McDonald 2005",
+    "events1": 6,
+    "total1": 9,
+    "events2": 6,
+    "total2": 9,
+    "oe": 0.0,
+    "variance": 0.0
+   }
+  ],
+  "published": {
+   "estimable": true,
+   "logScale": true,
+   "mean": -0.027372306904901122,
+   "se": 0.12898399550803932,
+   "ciStart": -0.28017629268273425,
+   "ciEnd": 0.2254316788729322,
+   "heterogeneity": {
+    "chiSquared": 6.654212649166197,
+    "degreesOfFreedom": 7,
+    "iSquared": 0.0,
+    "p": 0.4657485228347744
+   },
+   "overallEffect": {
+    "z": 0.2122147542188291,
+    "pZ": 0.8319394968165866,
+    "t": 0.0,
+    "pT": 0.0
+   },
+   "k": 8
+  }
+ },
+ {
+  "analysis": {
+   "number": 10,
+   "name": "Treatment failure (all randomised participants): Subgrouped by time to treatment initiation",
+   "method": "IV",
+   "model": "FIXED",
+   "effectMeasure": "OR",
+   "ciMethod": "WALD",
+   "ciLevel": "CI95",
+   "swapEvents": false,
+   "subgroupType": "COVARIATE",
+   "dataSource": "ONLY_ARM_LEVEL"
+  },
+  "dataRows": [
+   {
+    "studyId": "443255173517140750",
+    "name": "Wainwright 2009",
+    "events1": 41,
+    "total1": 127,
+    "events2": 47,
+    "total2": 124,
+    "oe": 0.0,
+    "variance": 0.0
+   },
+   {
+    "studyId": "443255173517140751",
+    "name": "FitzGerald 2004",
+    "events1": 12,
+    "total1": 142,
+    "events2": 9,
+    "total2": 148,
+    "oe": 0.0,
+    "variance": 0.0
+   },
+   {
+    "studyId": "443255173517140753",
+    "name": "Garrett 1998",
+    "events1": 2,
+    "total1": 14,
+    "events2": 0,
+    "total2": 14,
+    "oe": 0.0,
+    "variance": 0.0
+   },
+   {
+    "studyId": "443255173517140754",
+    "name": "Harrison 2004",
+    "events1": 22,
+    "total1": 192,
+    "events2": 24,
+    "total2": 198,
+    "oe": 0.0,
+    "variance": 0.0
+   },
+   {
+    "studyId": "443255173517140755",
+    "name": "Jackson 2018",
+    "events1": 38,
+    "total1": 127,
+    "events2": 30,
+    "total2": 127,
+    "oe": 0.0,
+    "variance": 0.0
+   },
+   {
+    "studyId": "443255173517140757",
+    "name": "Martinez 2011",
+    "events1": 22,
+    "total1": 71,
+    "events2": 20,
+    "total2": 72,
+    "oe": 0.0,
+    "variance": 0.0
+   },
+   {
+    "studyId": "443255173517140758",
+    "name": "Oborne 2009",
+    "events1": 18,
+    "total1": 197,
+    "events2": 29,
+    "total2": 203,
+    "oe": 0.0,
+    "variance": 0.0
+   },
+   {
+    "studyId": "443255173517140759",
+    "name": "Rice-McDonald 2005",
+    "events1": 6,
+    "total1": 9,
+    "events2": 6,
+    "total2": 9,
+    "oe": 0.0,
+    "variance": 0.0
+   }
+  ],
+  "published": {
+   "estimable": true,
+   "logScale": true,
+   "mean": -0.027372306904901122,
+   "se": 0.12898399550803932,
+   "ciStart": -0.28017629268273425,
+   "ciEnd": 0.2254316788729322,
+   "heterogeneity": {
+    "chiSquared": 6.654212649166197,
+    "degreesOfFreedom": 7,
+    "iSquared": 0.0,
+    "p": 0.4657485228347744
+   },
+   "overallEffect": {
+    "z": 0.2122147542188291,
+    "pZ": 0.8319394968165866,
+    "t": 0.0,
+    "pT": 0.0
+   },
+   "k": 8
+  }
+ },
+ {
+  "analysis": {
+   "number": 11,
+   "name": "Treatment failure (all randomised participants): Subgrouped by maintenance inhaled corticosteroid dose",
+   "method": "IV",
+   "model": "FIXED",
+   "effectMeasure": "OR",
+   "ciMethod": "WALD",
+   "ciLevel": "CI95",
+   "swapEvents": false,
+   "subgroupType": "COVARIATE",
+   "dataSource": "ONLY_ARM_LEVEL"
+  },
+  "dataRows": [
+   {
+    "studyId": "443255173517140750",
+    "name": "Wainwright 2009",
+    "events1": 41,
+    "total1": 127,
+    "events2": 47,
+    "total2": 124,
+    "oe": 0.0,
+    "variance": 0.0
+   },
+   {
+    "studyId": "443255173517140751",
+    "name": "FitzGerald 2004",
+    "events1": 12,
+    "total1": 142,
+    "events2": 9,
+    "total2": 148,
+    "oe": 0.0,
+    "variance": 0.0
+   },
+   {
+    "studyId": "443255173517140753",
+    "name": "Garrett 1998",
+    "events1": 2,
+    "total1": 14,
+    "events2": 0,
+    "total2": 14,
+    "oe": 0.0,
+    "variance": 0.0
+   },
+   {
+    "studyId": "443255173517140754",
+    "name": "Harrison 2004",
+    "events1": 22,
+    "total1": 192,
+    "events2": 24,
+    "total2": 198,
+    "oe": 0.0,
+    "variance": 0.0
+   },
+   {
+    "studyId": "443255173517140755",
+    "name": "Jackson 2018",
+    "events1": 38,
+    "total1": 127,
+    "events2": 30,
+    "total2": 127,
+    "oe": 0.0,
+    "variance": 0.0
+   },
+   {
+    "studyId": "443255173517140757",
+    "name": "Martinez 2011",
+    "events1": 22,
+    "total1": 71,
+    "events2": 20,
+    "total2": 72,
+    "oe": 0.0,
+    "variance": 0.0
+   },
+   {
+    "studyId": "443255173517140758",
+    "name": "Oborne 2009",
+    "events1": 18,
+    "total1": 197,
+    "events2": 29,
+    "total2": 203,
+    "oe": 0.0,
+    "variance": 0.0
+   },
+   {
+    "studyId": "443255173517140759",
+    "name": "Rice-McDonald 2005",
+    "events1": 6,
+    "total1": 9,
+    "events2": 6,
+    "total2": 9,
+    "oe": 0.0,
+    "variance": 0.0
+   }
+  ],
+  "published": {
+   "estimable": true,
+   "logScale": true,
+   "mean": -0.03910089717630081,
+   "se": 0.1294070008568607,
+   "ciStart": -0.2927339582030917,
+   "ciEnd": 0.21453216385049,
+   "heterogeneity": {
+    "chiSquared": 5.395668676539061,
+    "degreesOfFreedom": 6,
+    "iSquared": 0.0,
+    "p": 0.49415532962358377
+   },
+   "overallEffect": {
+    "z": 0.30215441913804175,
+    "pZ": 0.7625343498478276,
+    "t": 0.0,
+    "pT": 0.0
+   },
+   "k": 7
+  }
+ },
+ {
+  "analysis": {
+   "number": 12,
+   "name": "Treatment failure (all randomised participants): Subgrouped by inhaled corticosteroid dose during exacerbation",
+   "method": "IV",
+   "model": "FIXED",
+   "effectMeasure": "OR",
+   "ciMethod": "WALD",
+   "ciLevel": "CI95",
+   "swapEvents": false,
+   "subgroupType": "COVARIATE",
+   "dataSource": "ONLY_ARM_LEVEL"
+  },
+  "dataRows": [
+   {
+    "studyId": "443255173517140750",
+    "name": "Wainwright 2009",
+    "events1": 41,
+    "total1": 127,
+    "events2": 47,
+    "total2": 124,
+    "oe": 0.0,
+    "variance": 0.0
+   },
+   {
+    "studyId": "443255173517140751",
+    "name": "FitzGerald 2004",
+    "events1": 12,
+    "total1": 142,
+    "events2": 9,
+    "total2": 148,
+    "oe": 0.0,
+    "variance": 0.0
+   },
+   {
+    "studyId": "443255173517140753",
+    "name": "Garrett 1998",
+    "events1": 2,
+    "total1": 14,
+    "events2": 0,
+    "total2": 14,
+    "oe": 0.0,
+    "variance": 0.0
+   },
+   {
+    "studyId": "443255173517140754",
+    "name": "Harrison 2004",
+    "events1": 22,
+    "total1": 192,
+    "events2": 24,
+    "total2": 198,
+    "oe": 0.0,
+    "variance": 0.0
+   },
+   {
+    "studyId": "443255173517140755",
+    "name": "Jackson 2018",
+    "events1": 38,
+    "total1": 127,
+    "events2": 30,
+    "total2": 127,
+    "oe": 0.0,
+    "variance": 0.0
+   },
+   {
+    "studyId": "443255173517140757",
+    "name": "Martinez 2011",
+    "events1": 22,
+    "total1": 71,
+    "events2": 20,
+    "total2": 72,
+    "oe": 0.0,
+    "variance": 0.0
+   },
+   {
+    "studyId": "443255173517140758",
+    "name": "Oborne 2009",
+    "events1": 18,
+    "total1": 197,
+    "events2": 29,
+    "total2": 203,
+    "oe": 0.0,
+    "variance": 0.0
+   },
+   {
+    "studyId": "443255173517140759",
+    "name": "Rice-McDonald 2005",
+    "events1": 6,
+    "total1": 9,
+    "events2": 6,
+    "total2": 9,
+    "oe": 0.0,
+    "variance": 0.0
+   }
+  ],
+  "published": {
+   "estimable": true,
+   "logScale": true,
+   "mean": -0.03910089717630079,
+   "se": 0.1294070008568607,
+   "ciStart": -0.2927339582030917,
+   "ciEnd": 0.21453216385049,
+   "heterogeneity": {
+    "chiSquared": 5.395668676539059,
+    "degreesOfFreedom": 6,
+    "iSquared": 0.0,
+    "p": 0.49415532962358377
+   },
+   "overallEffect": {
+    "z": 0.3021544191380416,
+    "pZ": 0.7625343498478278,
+    "t": 0.0,
+    "pT": 0.0
+   },
+   "k": 7
+  }
+ },
+ {
+  "analysis": {
+   "number": 13,
+   "name": "Treatment failure (all randomised participants): Subgrouped by inhaled corticosteroid fold increase",
+   "method": "IV",
+   "model": "FIXED",
+   "effectMeasure": "OR",
+   "ciMethod": "WALD",
+   "ciLevel": "CI95",
+   "swapEvents": false,
+   "subgroupType": "COVARIATE",
+   "dataSource": "ONLY_ARM_LEVEL"
+  },
+  "dataRows": [
+   {
+    "studyId": "443255173517140750",
+    "name": "Wainwright 2009",
+    "events1": 41,
+    "total1": 127,
+    "events2": 47,
+    "total2": 124,
+    "oe": 0.0,
+    "variance": 0.0
+   },
+   {
+    "studyId": "443255173517140751",
+    "name": "FitzGerald 2004",
+    "events1": 12,
+    "total1": 142,
+    "events2": 9,
+    "total2": 148,
+    "oe": 0.0,
+    "variance": 0.0
+   },
+   {
+    "studyId": "443255173517140753",
+    "name": "Garrett 1998",
+    "events1": 2,
+    "total1": 14,
+    "events2": 0,
+    "total2": 14,
+    "oe": 0.0,
+    "variance": 0.0
+   },
+   {
+    "studyId": "443255173517140754",
+    "name": "Harrison 2004",
+    "events1": 22,
+    "total1": 192,
+    "events2": 24,
+    "total2": 198,
+    "oe": 0.0,
+    "variance": 0.0
+   },
+   {
+    "studyId": "443255173517140755",
+    "name": "Jackson 2018",
+    "events1": 38,
+    "total1": 127,
+    "events2": 30,
+    "total2": 127,
+    "oe": 0.0,
+    "variance": 0.0
+   },
+   {
+    "studyId": "443255173517140757",
+    "name": "Martinez 2011",
+    "events1": 22,
+    "total1": 71,
+    "events2": 20,
+    "total2": 72,
+    "oe": 0.0,
+    "variance": 0.0
+   },
+   {
+    "studyId": "443255173517140758",
+    "name": "Oborne 2009",
+    "events1": 18,
+    "total1": 197,
+    "events2": 29,
+    "total2": 203,
+    "oe": 0.0,
+    "variance": 0.0
+   },
+   {
+    "studyId": "443255173517140759",
+    "name": "Rice-McDonald 2005",
+    "events1": 6,
+    "total1": 9,
+    "events2": 6,
+    "total2": 9,
+    "oe": 0.0,
+    "variance": 0.0
+   }
+  ],
+  "published": {
+   "estimable": true,
+   "logScale": true,
+   "mean": -0.02737230690490113,
+   "se": 0.12898399550803932,
+   "ciStart": -0.28017629268273425,
+   "ciEnd": 0.225431678872932,
+   "heterogeneity": {
+    "chiSquared": 6.654212649166197,
+    "degreesOfFreedom": 7,
+    "iSquared": 0.0,
+    "p": 0.4657485228347744
+   },
+   "overallEffect": {
+    "z": 0.21221475421882915,
+    "pZ": 0.8319394968165865,
+    "t": 0.0,
+    "pT": 0.0
+   },
+   "k": 8
+  }
+ },
+ {
+  "analysis": {
+   "number": 14,
+   "name": "Treatment failure (all randomised participants): Sensitivity analysis of parallel-group studies only",
+   "method": "IV",
+   "model": "FIXED",
+   "effectMeasure": "OR",
+   "ciMethod": "WALD",
+   "ciLevel": "CI95",
+   "swapEvents": false,
+   "subgroupType": "NONE",
+   "dataSource": "ONLY_ARM_LEVEL"
+  },
+  "dataRows": [
+   {
+    "studyId": "443255173517140750",
+    "name": "Wainwright 2009",
+    "events1": 41,
+    "total1": 127,
+    "events2": 47,
+    "total2": 124,
+    "oe": 0.0,
+    "variance": 0.0
+   },
+   {
+    "studyId": "443255173517140751",
+    "name": "FitzGerald 2004",
+    "events1": 12,
+    "total1": 142,
+    "events2": 9,
+    "total2": 148,
+    "oe": 0.0,
+    "variance": 0.0
+   },
+   {
+    "studyId": "443255173517140754",
+    "name": "Harrison 2004",
+    "events1": 22,
+    "total1": 192,
+    "events2": 24,
+    "total2": 198,
+    "oe": 0.0,
+    "variance": 0.0
+   },
+   {
+    "studyId": "443255173517140755",
+    "name": "Jackson 2018",
+    "events1": 38,
+    "total1": 127,
+    "events2": 30,
+    "total2": 127,
+    "oe": 0.0,
+    "variance": 0.0
+   },
+   {
+    "studyId": "443255173517140757",
+    "name": "Martinez 2011",
+    "events1": 22,
+    "total1": 71,
+    "events2": 20,
+    "total2": 72,
+    "oe": 0.0,
+    "variance": 0.0
+   },
+   {
+    "studyId": "443255173517140758",
+    "name": "Oborne 2009",
+    "events1": 18,
+    "total1": 197,
+    "events2": 29,
+    "total2": 203,
+    "oe": 0.0,
+    "variance": 0.0
+   }
+  ],
+  "published": {
+   "estimable": true,
+   "logScale": true,
+   "mean": -0.03976683950541571,
+   "se": 0.13050433834322223,
+   "ciStart": -0.295550642484361,
+   "ciEnd": 0.21601696347352956,
+   "heterogeneity": {
+    "chiSquared": 5.394113757436532,
+    "degreesOfFreedom": 5,
+    "iSquared": 7.306367183917687,
+    "p": 0.3696964945735457
+   },
+   "overallEffect": {
+    "z": 0.304716609503281,
+    "pZ": 0.7605819987415283,
+    "t": 0.0,
+    "pT": 0.0
+   },
+   "k": 6
+  }
+ },
+ {
+  "analysis": {
+   "number": 15,
+   "name": "Treatment failure (all randomised participants): Sensitivity analysis to remove studies with results at high risk of bias",
+   "method": "IV",
+   "model": "FIXED",
+   "effectMeasure": "OR",
+   "ciMethod": "WALD",
+   "ciLevel": "CI95",
+   "swapEvents": false,
+   "subgroupType": "NONE",
+   "dataSource": "ONLY_ARM_LEVEL"
+  },
+  "dataRows": [
+   {
+    "studyId": "443255173517140750",
+    "name": "Wainwright 2009",
+    "events1": 41,
+    "total1": 127,
+    "events2": 47,
+    "total2": 124,
+    "oe": 0.0,
+    "variance": 0.0
+   },
+   {
+    "studyId": "443255173517140754",
+    "name": "Harrison 2004",
+    "events1": 22,
+    "total1": 192,
+    "events2": 24,
+    "total2": 198,
+    "oe": 0.0,
+    "variance": 0.0
+   },
+   {
+    "studyId": "443255173517140755",
+    "name": "Jackson 2018",
+    "events1": 38,
+    "total1": 127,
+    "events2": 30,
+    "total2": 127,
+    "oe": 0.0,
+    "variance": 0.0
+   },
+   {
+    "studyId": "443255173517140757",
+    "name": "Martinez 2011",
+    "events1": 22,
+    "total1": 71,
+    "events2": 20,
+    "total2": 72,
+    "oe": 0.0,
+    "variance": 0.0
+   },
+   {
+    "studyId": "443255173517140758",
+    "name": "Oborne 2009",
+    "events1": 18,
+    "total1": 197,
+    "events2": 29,
+    "total2": 203,
+    "oe": 0.0,
+    "variance": 0.0
+   }
+  ],
+  "published": {
+   "estimable": true,
+   "logScale": true,
+   "mean": -0.07469660030875565,
+   "se": 0.1361609312690288,
+   "ciStart": -0.3415671216974858,
+   "ciEnd": 0.19217392107997447,
+   "heterogeneity": {
+    "chiSquared": 4.585260311244783,
+    "degreesOfFreedom": 4,
+    "iSquared": 12.76394951469831,
+    "p": 0.3325573288450754
+   },
+   "overallEffect": {
+    "z": 0.5485905509941686,
+    "pZ": 0.5832864742460866,
+    "t": 0.0,
+    "pT": 0.0
+   },
+   "k": 5
+  }
+ },
+ {
+  "analysis": {
+   "number": 16,
+   "name": "Treatment failure (all randomised participants): Sensitivity analysis of independent funded studies only",
+   "method": "IV",
+   "model": "FIXED",
+   "effectMeasure": "OR",
+   "ciMethod": "WALD",
+   "ciLevel": "CI95",
+   "swapEvents": false,
+   "subgroupType": "NONE",
+   "dataSource": "ONLY_ARM_LEVEL"
+  },
+  "dataRows": [
+   {
+    "studyId": "443255173517140750",
+    "name": "Wainwright 2009",
+    "events1": 41,
+    "total1": 127,
+    "events2": 47,
+    "total2": 124,
+    "oe": 0.0,
+    "variance": 0.0
+   },
+   {
+    "studyId": "443255173517140754",
+    "name": "Harrison 2004",
+    "events1": 22,
+    "total1": 192,
+    "events2": 24,
+    "total2": 198,
+    "oe": 0.0,
+    "variance": 0.0
+   },
+   {
+    "studyId": "443255173517140755",
+    "name": "Jackson 2018",
+    "events1": 38,
+    "total1": 127,
+    "events2": 30,
+    "total2": 127,
+    "oe": 0.0,
+    "variance": 0.0
+   },
+   {
+    "studyId": "443255173517140757",
+    "name": "Martinez 2011",
+    "events1": 22,
+    "total1": 71,
+    "events2": 20,
+    "total2": 72,
+    "oe": 0.0,
+    "variance": 0.0
+   },
+   {
+    "studyId": "443255173517140758",
+    "name": "Oborne 2009",
+    "events1": 18,
+    "total1": 197,
+    "events2": 29,
+    "total2": 203,
+    "oe": 0.0,
+    "variance": 0.0
+   },
+   {
+    "studyId": "443255173517140759",
+    "name": "Rice-McDonald 2005",
+    "events1": 6,
+    "total1": 9,
+    "events2": 6,
+    "total2": 9,
+    "oe": 0.0,
+    "variance": 0.0
+   }
+  ],
+  "published": {
+   "estimable": true,
+   "logScale": true,
+   "mean": -0.07333694801825932,
+   "se": 0.13491601695341016,
+   "ciStart": -0.33776748218453845,
+   "ciEnd": 0.19109358614801997,
+   "heterogeneity": {
+    "chiSquared": 4.590738331938767,
+    "degreesOfFreedom": 5,
+    "iSquared": 0.0,
+    "p": 0.4678355675787451
+   },
+   "overallEffect": {
+    "z": 0.5435748080495467,
+    "pZ": 0.5867341017056448,
+    "t": 0.0,
+    "pT": 0.0
+   },
+   "k": 6
+  }
+ }
+]
