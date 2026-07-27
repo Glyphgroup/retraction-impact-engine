@@ -160,16 +160,78 @@ def parse_data_row(row: dict, config: AnalysisConfig,
     return None
 
 
+def parse_study_covariate_assignments(payloads: dict[str, Any],
+                                      value_to_definition: dict[str, str] | None = None
+                                      ) -> dict[str, set[str]]:
+    """Map study id to the covariate definitions it holds a value for.
+
+    ``payloads`` is keyed by study id, each value a studyCovariateValues
+    response. Some rows name only the covariate *value*, so
+    ``value_to_definition`` (from the review's covariateValues) resolves those.
+    """
+    lookup = value_to_definition or {}
+    assignments: dict[str, set[str]] = {}
+    for study_id, payload in payloads.items():
+        definitions: set[str] = set()
+        for row in unwrap(payload, "StudyCovariateValues"):
+            value_id = str(row.get("covariateValueId") or "")
+            definition = str(row.get("covariateDefinitionId") or lookup.get(value_id) or "")
+            if definition:
+                definitions.add(definition)
+        assignments[str(study_id)] = definitions
+    return assignments
+
+
+def parse_covariate_value_map(payload: Any) -> dict[str, str]:
+    """Map covariate value id to its covariate definition id."""
+    return {str(v["id"]): str(v["covariateDefinitionId"])
+            for v in unwrap(payload, "CovariateValues")
+            if v.get("id") and v.get("covariateDefinitionId")}
+
+
+def eligible_study_ids(analysis: dict, assignments: dict[str, set[str]]) -> set[str] | None:
+    """Which studies RevMan will pool, decided from input data.
+
+    When an analysis is subgrouped by a covariate, RevMan drops any study that
+    has no value for that covariate -- from the subgroups AND from the overall
+    total. Verified against every covariate-subgrouped analysis in the
+    calibration review: the prediction matched RevMan's study count 7 times out
+    of 7.
+
+    Returns None when no restriction applies, so callers can distinguish "every
+    row counts" from "an empty eligible set".
+
+    This is derived from the covariate assignments, which are inputs, not from
+    the pooled result. Reading membership off RevMan's own output would make the
+    reproduce-gate circular.
+    """
+    if analysis.get("subgroupType") != "COVARIATE":
+        return None
+    definition = str(analysis.get("subgroupByCovariateDefinitionId") or "")
+    if not definition:
+        return None
+    return {sid for sid, definitions in assignments.items() if definition in definitions}
+
+
 def parse_data_rows(payload: Any, config: AnalysisConfig,
-                    data_source: str = ARM_ONLY) -> tuple[list[StudyData], list[str]]:
-    """Returns (studies, ids of rows that carried no usable numbers)."""
+                    data_source: str = ARM_ONLY,
+                    eligible: set[str] | None = None) -> tuple[list[StudyData], list[str]]:
+    """Returns (studies, ids of rows that carried no usable numbers).
+
+    ``eligible`` restricts which studies are pooled, per eligible_study_ids.
+    Ineligible rows are not reported as unusable: their numbers are fine, they
+    simply do not belong to this analysis.
+    """
     studies: list[StudyData] = []
     unusable: list[str] = []
     for row in unwrap(payload, "PairwiseDataRows", "CustomPairwiseDataRows"):
+        study = row.get("study") or {}
+        study_id = str(row.get("studyId") or study.get("id") or row.get("id"))
+        if eligible is not None and study_id not in eligible:
+            continue
         parsed = parse_data_row(row, config, data_source)
         if parsed is None:
-            study = row.get("study") or {}
-            unusable.append(str(study.get("name") or row.get("studyId") or row.get("id")))
+            unusable.append(str(study.get("name") or study_id))
         else:
             studies.append(parsed)
     return studies, unusable

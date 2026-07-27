@@ -24,6 +24,17 @@ def main() -> None:
         load("reviews_%s_pairwiseAnalyses.json" % REVIEW), "PairwiseAnalyses", "Analyses")
     analyses.sort(key=lambda a: a.get("number") or 0)
 
+    value_map = cochrane.parse_covariate_value_map(load("reviews_%s_covariateValues.json" % REVIEW))
+    included = cochrane.unwrap(load("reviews_%s_studies_included.json" % REVIEW), "Studies")
+    payloads = {}
+    for study in included:
+        sid = str(study["id"])
+        try:
+            payloads[sid] = load("reviews_%s_studies_%s_studyCovariateValues.json" % (REVIEW, sid))
+        except FileNotFoundError:
+            continue
+    assignments = cochrane.parse_study_covariate_assignments(payloads, value_map)
+
     passed = mismatched = unverifiable = 0
     rows = []
 
@@ -37,7 +48,8 @@ def main() -> None:
         except FileNotFoundError:
             continue
 
-        studies, unusable = cochrane.parse_data_rows(raw_rows, config, source)
+        eligible = cochrane.eligible_study_ids(a, assignments)
+        studies, unusable = cochrane.parse_data_rows(raw_rows, config, source, eligible)
         published = cochrane.parse_results(raw_res)
         report = check(studies, config, published)
 

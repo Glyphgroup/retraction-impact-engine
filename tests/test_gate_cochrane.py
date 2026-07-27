@@ -1,15 +1,17 @@
 """Regression: reproduce RevMan's own pooled results for a real Cochrane review.
 
-The fixture holds 16 analyses from a Cochrane practice review, each with the
+The fixture holds 16 analyses from a Cochrane calibration review, each with the
 study-level numbers and the pooled result RevMan computed from them. This is the
-strongest validation available to us: not a textbook example, not another Python
+strongest validation available: not a textbook example, not another Python
 library, but the reference implementation the field actually uses.
 
-Two analyses are expected to fail the gate, and that is the point. Both are
-subgrouped by a covariate, and RevMan drops a study with no value for that
-covariate from the overall total. We pool it, our estimate moves by more than
-tolerance, and the gate refuses to emit. The test pins that behaviour so a
-future change cannot quietly turn a known-bad case into a pass.
+All 16 reproduce, to double-precision agreement, across inverse-variance,
+Mantel-Haenszel and Peto, fixed and random effects, arm-level and contrast-level
+data, and odds ratio, mean difference and Peto odds ratio.
+
+Study membership in a subgrouped analysis is derived from covariate assignments,
+which are inputs. Deriving it from RevMan's own output would make the gate
+circular, so that is tested explicitly.
 """
 from __future__ import annotations
 
@@ -18,56 +20,50 @@ from pathlib import Path
 
 import pytest
 
+from rie import pool
 from rie.gate import Verdict, check
 from rie.sources import cochrane
 
 FIXTURE = Path(__file__).parent / "data" / "cochrane_asthma.json"
 
-#: Analyses where RevMan and our extraction disagree on study membership.
-KNOWN_MEMBERSHIP_MISMATCHES = {11, 12}
-
-#: Every analysis in the fixture reproduces to at least this precision. RevMan
-#: and our engine agree to double-precision rounding, far inside the 0.01 gate
-#: tolerance, so passes are exact rather than marginal.
+#: Every analysis agrees with RevMan to at least this precision, against a gate
+#: tolerance of 1e-2. Passes are exact rather than marginal.
 EXACT_TOLERANCE = 1e-12
 
 
-def cases():
+def fixture() -> dict:
     return json.loads(FIXTURE.read_text(encoding="utf-8"))
 
 
-def build(case):
+def assignments() -> dict[str, set[str]]:
+    return {k: set(v) for k, v in fixture()["studyCovariateAssignments"].items()}
+
+
+def cases() -> list[dict]:
+    return fixture()["analyses"]
+
+
+def ids() -> list[str]:
+    return ["%02d-%s-%s" % (c["analysis"]["number"], c["analysis"]["method"],
+                            c["analysis"]["effectMeasure"]) for c in cases()]
+
+
+def build(case: dict):
     analysis = case["analysis"]
     config = cochrane.parse_config(analysis)
-    source = analysis.get("dataSource") or cochrane.ARM_ONLY
+    eligible = cochrane.eligible_study_ids(analysis, assignments())
     studies, unusable = cochrane.parse_data_rows(
-        {"PairwiseDataRows": case["dataRows"]}, config, source)
-    published = cochrane.parse_results({
-        "result": case["published"] | {"mean": case["published"]["mean"]},
-        "dataRows": [], "subgroups": [],
-    })
-    # The fixture stores the study count RevMan used, since the subgroup rows
-    # it was derived from are not carried into the fixture.
+        {"PairwiseDataRows": case["dataRows"]}, config,
+        analysis.get("dataSource") or cochrane.ARM_ONLY, eligible)
+    published = cochrane.parse_results(
+        {"result": case["published"], "dataRows": [], "subgroups": []})
     return config, studies, published, case["published"]["k"], unusable
-
-
-def ids():
-    return ["%02d-%s" % (c["analysis"]["number"], c["analysis"]["method"]) for c in cases()]
 
 
 @pytest.mark.parametrize("case", cases(), ids=ids())
 def test_pooled_estimate_matches_revman(case):
-    """Our pooled estimate must equal RevMan's, regardless of gate verdict.
-
-    Study membership is a separate question from arithmetic, so this checks the
-    arithmetic on exactly the studies we extracted.
-    """
     config, studies, published, _, _ = build(case)
-    from rie import pool
     ours = pool(studies, config)
-    number = case["analysis"]["number"]
-    if number in KNOWN_MEMBERSHIP_MISMATCHES:
-        pytest.skip("study membership differs; covered by the gate verdict test")
     assert ours.estimate == pytest.approx(published.estimate, abs=EXACT_TOLERANCE)
     assert ours.se == pytest.approx(published.se, abs=EXACT_TOLERANCE)
     assert ours.ci_low == pytest.approx(published.ci_low, abs=EXACT_TOLERANCE)
@@ -77,9 +73,6 @@ def test_pooled_estimate_matches_revman(case):
 @pytest.mark.parametrize("case", cases(), ids=ids())
 def test_heterogeneity_matches_revman(case):
     config, studies, published, _, _ = build(case)
-    if case["analysis"]["number"] in KNOWN_MEMBERSHIP_MISMATCHES:
-        pytest.skip("study membership differs; heterogeneity is not comparable")
-    from rie import pool
     ours = pool(studies, config)
     if published.q is not None:
         assert ours.heterogeneity.q == pytest.approx(published.q, abs=1e-9)
@@ -94,42 +87,95 @@ def test_heterogeneity_matches_revman(case):
 
 
 @pytest.mark.parametrize("case", cases(), ids=ids())
-def test_gate_verdict_is_stable(case):
+def test_gate_reproduces_every_analysis(case):
     config, studies, published, k, _ = build(case)
     report = check(studies, config, published, expected_k=k)
-    number = case["analysis"]["number"]
-    if number in KNOWN_MEMBERSHIP_MISMATCHES:
-        assert report.verdict is Verdict.MISMATCH
-        assert not report.passed
-    else:
-        assert report.verdict is Verdict.REPRODUCED, report.reason
-        assert abs(report.difference) <= EXACT_TOLERANCE
+    assert report.verdict is Verdict.REPRODUCED, report.reason
+    assert abs(report.difference) <= EXACT_TOLERANCE
+    assert report.recomputed_k == k
+
+
+def test_reproduce_rate_is_total():
+    """The headline measurement, pinned so any regression is visible."""
+    passed = 0
+    for case in cases():
+        config, studies, published, k, _ = build(case)
+        passed += check(studies, config, published, expected_k=k).passed
+    assert (passed, len(cases())) == (16, 16)
 
 
 def test_every_row_yielded_usable_numbers():
-    """Extraction from structured RevMan data should lose nothing."""
     for case in cases():
         _, studies, _, _, unusable = build(case)
         assert unusable == []
         assert studies
 
 
-def test_reproduce_rate_is_recorded():
-    """The headline measurement, pinned so a regression is visible."""
-    total = passed = 0
+# --------------------------------------------------------------------------
+# Study membership must come from inputs, not from RevMan's output
+# --------------------------------------------------------------------------
+
+def covariate_subgrouped() -> list[dict]:
+    return [c for c in cases() if c["analysis"].get("subgroupType") == "COVARIATE"]
+
+
+def test_covariate_subgrouping_restricts_membership():
+    """A study with no value for the subgrouping covariate is not pooled.
+
+    Two analyses in this review are affected: both drop one study. Without the
+    rule our pooled estimate is off by more than tolerance and the gate refuses,
+    so this is the difference between 14 of 16 and 16 of 16.
+    """
+    restricted = []
+    for case in covariate_subgrouped():
+        analysis = case["analysis"]
+        eligible = cochrane.eligible_study_ids(analysis, assignments())
+        assert eligible is not None
+        row_ids = {str(r["studyId"]) for r in case["dataRows"]}
+        dropped = row_ids - eligible
+        if dropped:
+            restricted.append((analysis["number"], len(dropped)))
+    assert restricted == [(11, 1), (12, 1)]
+
+
+def test_ignoring_the_covariate_rule_makes_the_gate_refuse():
+    """Confirms the rule is load-bearing rather than decorative."""
+    refused = 0
+    for case in covariate_subgrouped():
+        analysis = case["analysis"]
+        config = cochrane.parse_config(analysis)
+        studies, _ = cochrane.parse_data_rows(
+            {"PairwiseDataRows": case["dataRows"]}, config,
+            analysis.get("dataSource") or cochrane.ARM_ONLY, None)
+        published = cochrane.parse_results(
+            {"result": case["published"], "dataRows": [], "subgroups": []})
+        report = check(studies, config, published, expected_k=case["published"]["k"])
+        if not report.passed:
+            refused += 1
+    assert refused == 2
+
+
+def test_non_subgrouped_analyses_have_no_membership_restriction():
     for case in cases():
-        config, studies, published, k, _ = build(case)
-        report = check(studies, config, published, expected_k=k)
-        total += 1
-        passed += report.passed
-    assert total == 16
-    assert passed == 14
+        analysis = case["analysis"]
+        if analysis.get("subgroupType") == "COVARIATE":
+            continue
+        assert cochrane.eligible_study_ids(analysis, assignments()) is None
 
 
-def test_all_four_pooling_methods_are_exercised():
+def test_membership_is_not_read_from_the_published_result():
+    """The eligible set is computable with no access to RevMan's output at all."""
+    for case in covariate_subgrouped():
+        eligible = cochrane.eligible_study_ids(case["analysis"], assignments())
+        assert eligible is not None and eligible
+
+
+def test_all_method_combinations_are_exercised():
     methods = {c["analysis"]["method"] for c in cases()}
     measures = {c["analysis"]["effectMeasure"] for c in cases()}
     models = {c["analysis"].get("model", "FIXED") for c in cases()}
+    sources = {c["analysis"].get("dataSource") for c in cases()}
     assert {"IV", "MH", "PETO"} <= methods
     assert {"OR", "MD", "PETO_OR"} <= measures
     assert {"FIXED", "RANDOM"} <= models
+    assert {"ONLY_ARM_LEVEL", "ONLY_CONTRAST_LEVEL"} <= sources

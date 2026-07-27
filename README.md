@@ -53,6 +53,60 @@ coverage.
 
 **No finding is ever emitted that did not pass the gate.**
 
+## Citing a retracted study is not the same as pooling it
+
+This is the distinction the project lives or dies on, and the first thing a
+reviewer should attack.
+
+A systematic review can cite a retracted trial in at least four ways:
+
+1. **Included in the meta-analysis**, contributing weight to a pooled estimate.
+   This is the only case that produces a finding.
+2. **Listed in the excluded studies table**, with a stated reason. Contributes
+   nothing. Citing it is correct practice.
+3. **Discussed in the narrative** — background, limitations, or explicitly noting
+   the retraction. Contributes nothing.
+4. **Cited in the methods**, for instance to borrow a measurement approach.
+   Contributes nothing.
+
+Cases 2, 3 and 4 are the most likely source of a false finding here. Reporting
+that a review's pooled estimate is contaminated when the trial sat in its
+excluded studies table would not merely be wrong, it would be wrong in a way that
+discredits every other finding.
+
+So inclusion is established from the forest plot or the analysis data table,
+**never from the reference list**. The licensed chain is:
+
+```
+retracted DOI
+  -> cited by synthesis          (candidate generation only, proves nothing)
+  -> appears as a row in a specific analysis's data
+  -> contributes weight to a pooled estimate
+  -> removing it changes that estimate
+```
+
+Only the third step licenses a finding. The citation walk is a candidate
+generator and nothing more. A review that already excluded the retracted study,
+or has already been updated to remove it, is doing the right thing and is never
+flagged. See `rie/provenance.py`.
+
+## Publication gate
+
+Internally we generate as many candidate findings as we like. Publication is a
+separate state, reached only when all four of these hold:
+
+1. The reproduce-gate passed — we reproduced the review's own published pooled
+   estimate from its own data.
+2. Inclusion is confirmed from analysis-level data, not the reference list.
+3. An epidemiologist or systematic reviewer has assessed the batch and can speak
+   to clinical significance.
+4. The review authors, and any implicated guideline committee, have been
+   contacted privately with full workings and given time to respond.
+
+"Verified" and "published" are distinct states in the data model, and the state
+is *derived* from the evidence rather than set, so no code path can mark
+something published without the underlying evidence being present.
+
 ## Status
 
 Working:
@@ -62,18 +116,28 @@ Working:
   random effects, DerSimonian-Laird and REML between-study variance, Wald and
   Hartung-Knapp-Sidik-Jonkman intervals, Q, I², and RevMan's zero-cell and
   study-exclusion rules.
-- **Reproduce-gate** with an explicit, documented tolerance policy.
+- **Reproduce-gate** with an explicit tolerance policy.
+- **Inclusion evidence model and publication state machine** (`rie/provenance.py`).
 - **Retraction Watch ingest** via the free Crossref Labs export: 71,362 records,
   65,943 actual retractions, indexed by original-paper DOI and PubMed ID.
+- **OpenAlex citation walk** for candidate generation.
 
-Validation. The engine reproduces RevMan's own pooled results for **14 of 16
+Validation. The engine reproduces RevMan's own pooled results for **16 of 16
 analyses** in a real Cochrane review, to double-precision agreement (differences
-at the 1e-16 level, against a gate tolerance of 1e-2), spanning
-inverse-variance, Mantel-Haenszel and Peto, fixed and random effects, and odds
-ratio, mean difference and Peto odds ratio. The two exceptions are genuine: both
-are subgrouped by a covariate, and RevMan drops a study with no value for that
-covariate from the total. Our estimate moves by more than tolerance and the gate
-correctly refuses to emit anything. That is the gate doing its job.
+at the 1e-16 level, against a gate tolerance of 1e-2), on the pooled estimate,
+standard error, both confidence limits, Q, degrees of freedom, τ² and I². The set
+spans inverse-variance, Mantel-Haenszel and Peto; fixed and random effects;
+arm-level and contrast-level data; and odds ratio, mean difference and Peto odds
+ratio.
+
+Getting the last two required a real finding about RevMan's behaviour: when an
+analysis is subgrouped by a covariate, RevMan drops any study with no value for
+that covariate from the overall total, not just from the subgroups. That rule is
+derived here from the covariate assignments, which are inputs — reading study
+membership off RevMan's own output would make the gate circular. The rule
+predicts RevMan's study count correctly in all seven covariate-subgrouped
+analyses, and a test asserts that ignoring it makes the gate refuse, so the rule
+is load-bearing rather than decorative.
 
 Independent cross-checks, since R and metafor are not installed here: statsmodels
 for Mantel-Haenszel OR with RBG variance, inverse-variance fixed, DerSimonian-
@@ -83,8 +147,16 @@ for Peto. One finding worth flagging: statsmodels does not floor DerSimonian-
 Laird τ² at zero, and returns negative weights and a NaN standard error on
 underdispersed data. That is pinned as a test.
 
-Not built yet: the OpenAlex citation walk, extraction from open-access full text
-in PubMed Central, and the ranking of findings by how far a conclusion moved.
+Not built yet: Europe PMC full-text resolution, inclusion detection from
+full-text tables, and the ranking of findings by how far a conclusion moved.
+
+On the tolerance. Against structured RevMan data the reproduction error is
+machine epsilon, so the current threshold has roughly fourteen orders of
+magnitude of headroom and is doing no work. It will start to matter on full-text
+extraction, where the errors are real. Until we have that error distribution
+there is no evidence for any particular threshold, only an absence of evidence
+against this one. It will be set empirically, and the distribution published
+alongside it.
 
 ## Deliberately not rebuilt
 
